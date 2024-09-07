@@ -24,7 +24,6 @@ public class GetUserTest extends BaseTest{
 		restClient.get(GOREST_ENDPOINT, true, true)        // service URL is inherit fron the parent class
 		              .then().log().all()                         //here we have to write .log .all manually
 		                  .assertThat().statusCode(APIHttpStatus.OK_200.getCode());	
-		System.out.println("testing");
 	}
 	
 	@Test(priority = 2)
