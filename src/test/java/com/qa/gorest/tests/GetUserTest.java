@@ -23,16 +23,17 @@ public class GetUserTest extends BaseTest{
 	public void getAllUser() {
 		restClient.get(GOREST_ENDPOINT, true, true)        // service URL is inherit fron the parent class
 		              .then().log().all()                         //here we have to write .log .all manually
-		                  .assertThat().statusCode(APIHttpStatus.OK_200.getCode());		                  
+		                  .assertThat().statusCode(APIHttpStatus.OK_200.getCode());	
+		System.out.println("testing");
 	}
 	
 	@Test(priority = 2)
 	public void getUserTest() {
 		restClient = new RestClient(prop, baseURI);         // temp solution, baseURI coming from baseTest
-		restClient.get(GOREST_ENDPOINT+"/"+7360103, true, true)
+		restClient.get(GOREST_ENDPOINT+"/"+7386821, true, true)
 		              .then().log().all()                         //here we have to write .log .all manually
 		                  .assertThat().statusCode(APIHttpStatus.OK_200.getCode())
-		                      .and().body("id", equalTo(7360103));	                  
+		                      .and().body("id", equalTo(7386821));	                  
 	}
 
 	
