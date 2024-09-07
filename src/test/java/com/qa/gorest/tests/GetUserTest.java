@@ -19,7 +19,7 @@ public class GetUserTest extends BaseTest{
 
 	}
 	//code smell : sonarQube
-	@Test(enabled = false, priority = 3)
+	@Test(enabled = true, priority = 3)
 	public void getAllUser() {
 		restClient.get(GOREST_ENDPOINT, true, true)        // service URL is inherit fron the parent class
 		              .then().log().all()                         //here we have to write .log .all manually
