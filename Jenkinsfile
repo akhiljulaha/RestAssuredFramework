@@ -1,52 +1,40 @@
-pipeline 
-{
+pipeline {
     agent any
     
     tools{
         maven 'maven'
-        }
+    }
 
-    stages 
-    {
+    stages {
    
-        stage('Build') 
-        {
-            steps
-            {
+        stage('Build') {
+            steps {
                  git 'https://github.com/akhiljulaha/RestAssuredFramework.git'
                  bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
-            post 
-            {
-                success
-                {
+            post {
+                success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts 'target/*.jar'
                 }
             }
         }
         
-        
-        
-        stage("Deploy to QA"){
-            steps{
+        stage("Deploy to QA") {
+            steps {
                 echo("deploy to qa done")
             }
         }
         
-        
-                
         stage('Regression Automation Test') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/akhiljulaha/RestAssuredFramework.git'
                     bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/config/qa.cofiq.properties"
-                    
                 }
             }
         }
-                
-     
+        
         stage('Publish Allure Reports') {
            steps {
                 script {
@@ -61,43 +49,37 @@ pipeline
             }
         }
         
-        
-        stage("Deploy to Stage"){
-            steps{
+        stage("Deploy to Stage") {
+            steps {
                 echo("deploy to Stage")
             }
         }
         
-         stage('Sanity Automation Test') {
+        stage('Sanity Automation Test') {
             steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     git 'https://github.com/akhiljulaha/RestAssuredFramework.git'
                     bat "mvn clean test -Dsurefire.suiteXmlFiles=src/test/resources/config/stage.confiq.properties"
-                    
                 }
             }
         }
         
-        
-        
-        stage('Publish sanity Extent Report'){
-            steps{
-                     publishHTML([allowMissing: false,
-                                  alwaysLinkToLastBuild: false, 
-                                  keepAll: true, 
-                                  reportDir: 'reports', 
-                                  reportFiles: 'TestExecutionReport.html', 
-                                  reportName: 'HTML Sanity Extent Report', 
-                                  reportTitles: ''])
+        stage('Publish sanity Extent Report') {
+            steps {
+                publishHTML([allowMissing: false,
+                             alwaysLinkToLastBuild: false, 
+                             keepAll: true, 
+                             reportDir: 'reports', 
+                             reportFiles: 'TestExecutionReport.html', 
+                             reportName: 'HTML Sanity Extent Report', 
+                             reportTitles: ''])
             }
         }
         
         stage('Deploy to prod') {
             steps {
                 echo("deploy to prod")
-                }
             }
         }
-        
     }
 }
