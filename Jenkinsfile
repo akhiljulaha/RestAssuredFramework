@@ -13,7 +13,7 @@ pipeline
         {
             steps
             {
-                 git 'https://github.com/jglick/simple-maven-project-with-tests.git'
+                 git 'https://github.com/akhiljulaha/RestAssuredFramework.git'
                  bat "mvn -Dmaven.test.failure.ignore=true clean package"
             }
             post 
