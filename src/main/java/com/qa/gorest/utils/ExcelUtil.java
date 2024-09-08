@@ -8,7 +8,7 @@ import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.json.StaticInitializerCoercer;
+//import org.openqa.selenium.json.StaticInitializerCoercer;
 
 public class ExcelUtil {
 	private static final String TEST_DATA_SHEET_PATH = "./src/test/resources/testdata/APITestData.xlsx";
